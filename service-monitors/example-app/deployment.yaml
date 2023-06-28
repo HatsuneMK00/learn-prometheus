@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: example-app
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: example-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: example-app
-        image: fabxc/instrumented_app
+        image: aimvector/python:metrics
         ports:
         - name: web
-          containerPort: 8080
+          containerPort: 5000
