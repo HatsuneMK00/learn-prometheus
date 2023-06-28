@@ -13,6 +13,13 @@ spec:
   image: quay.io/prometheus/prometheus:v2.41.0
   nodeSelector:
     kubernetes.io/os: linux
+  podMetadata:
+    labels:
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/instance: example-app
+      app.kubernetes.io/version: 2.41.0
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/component: prometheus
   replicas: 1
   resources:
     requests:
@@ -23,10 +30,11 @@ spec:
     runAsNonRoot: true
     runAsUser: 1000
   serviceAccountName: prometheus-k8s
-  serviceMonitorNamespaceSelector:
-    matchLabels:
-      kubernetes.io/metadata.name: default
+  serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: 
     matchLabels:
-      app: example-app
+      app.kubernetes.io/component: prometheus
+      app.kubernetes.io/instance: example-app
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: kube-prometheus
   version: 2.41.0
